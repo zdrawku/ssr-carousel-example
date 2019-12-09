@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     FormsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     AppRoutingModule,
     IgxNavigationDrawerModule,
