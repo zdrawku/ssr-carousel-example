@@ -23,6 +23,44 @@ import {join} from 'path';
 // Express server
 const app = express();
 
+// server.ts
+const domino = require('domino');
+const fs = require('fs');
+const path = require('path');
+const template = fs
+  .readFileSync(path.join('dist/browser', 'index.html'))
+  .toString();
+const window = domino.createWindow(template);
+
+// Ignite UI browser objects abstractions
+(global as any).window = window;
+(global as any).document = window.document;
+(global as any).HTMLElement = window.HTMLElement;
+(global as any).HTMLElement.prototype.getBoundingClientRect = () => {
+    return {
+      left: '',
+      right: '',
+      top: '',
+      bottom: ''
+  };
+};
+
+// Workaround for require error with LiveEditingManager
+(global as any).KeyboardEvent = null;
+(global as any).MouseEvent = null;
+(global as any).Event = null;
+(global as any).FocusEvent = null;
+(global as any).PointerEvent = null;
+
+// If using IgxIconService to register icons
+(global as any).XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+
+// Other optional depending on your application configuration
+(global as any).object = window.object;
+(global as any).navigator = window.navigator;
+(global as any).localStorage = window.localStorage;
+(global as any).DOMTokenList = window.DOMTokenList;
+
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 
