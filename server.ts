@@ -35,6 +35,11 @@ const window = domino.createWindow(template);
 // Ignite UI browser objects abstractions
 (global as any).window = window;
 (global as any).document = window.document;
+(global as any).Event = window.Event;
+(global as any).KeyboardEvent = window.KeyboardEvent;
+(global as any).MouseEvent = window.MouseEvent;
+(global as any).FocusEvent = window.FocusEvent;
+(global as any).PointerEvent = window.PointerEvent;
 (global as any).HTMLElement = window.HTMLElement;
 (global as any).HTMLElement.prototype.getBoundingClientRect = () => {
     return {
@@ -44,13 +49,6 @@ const window = domino.createWindow(template);
       bottom: ''
   };
 };
-
-// Workaround for require error with LiveEditingManager
-(global as any).KeyboardEvent = null;
-(global as any).MouseEvent = null;
-(global as any).Event = null;
-(global as any).FocusEvent = null;
-(global as any).PointerEvent = null;
 
 // If using IgxIconService to register icons
 (global as any).XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
