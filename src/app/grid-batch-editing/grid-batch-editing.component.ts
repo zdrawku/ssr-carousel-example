@@ -4,12 +4,11 @@ import { data } from './data';
 import { IgxDialogComponent, IgxGridComponent, Transaction } from 'igniteui-angular';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-grid-batch-editing',
+  styleUrls: ['./grid-batch-editing.component.scss'],
+  templateUrl: './grid-batch-editing.component.html'
 })
-export class HomeComponent implements OnInit {
-  title = 'Welcome to Ignite UI for Angular!';
+export class GridBatchEditingComponent implements OnInit {
   @ViewChild('gridRowEditTransaction', { static: true, read: IgxGridComponent }) public grid: IgxGridComponent;
   @ViewChild(IgxDialogComponent, { static: true }) public dialog: IgxDialogComponent;
   @ViewChild('dialogGrid', { static: true, read: IgxGridComponent }) public dialogGrid: IgxGridComponent;
@@ -18,26 +17,16 @@ export class HomeComponent implements OnInit {
   public transactionsData: Transaction[] = [];
   private addProductId: number;
 
-  public chartType = 'Auto';
-
-  data2 = [
-    { CountryName: 'China', Pop1995: 1216, Pop2005: 1297, },
-    { CountryName: 'India', Pop1995: 920, Pop2005: 1090, },
-    { CountryName: 'United States', Pop1995: 266, Pop2005: 295, },
-    { CountryName: 'Indonesia', Pop1995: 197, Pop2005: 229, },
-    { CountryName: 'Brazil', Pop1995: 161, Pop2005: 186, }
-  ];
+  public get transactions() {
+    return this.grid.transactions;
+  }
 
   constructor() {
     this.data = data;
     this.addProductId = this.data.length + 1;
   }
 
-  public get transactions() {
-    return this.grid.transactions;
-  }
-  public ngOnInit() {
-
+  public ngOnInit(): void {
     this.transactionsData = this.transactions.getAggregatedChanges(true);
     this.transactions.onStateUpdate.subscribe(() => {
         this.transactionsData = this.transactions.getAggregatedChanges(true);
@@ -103,5 +92,4 @@ export class HomeComponent implements OnInit {
   public typeFormatter(value: string) {
     return value.toUpperCase();
   }
-
 }

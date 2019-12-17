@@ -1,15 +1,58 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <h1>{{title}}</h1>
-<img src="assets/responsive.gif" alt="Ignite UI CLI">
+<!-- <img src="assets/responsive.gif" alt="Ignite UI CLI"> -->
 
-<igx-carousel [interval]="interval" [pause]="pause" [loop]="loop">
-    <igx-slide *ngFor="let slide of slides;" [active]="slide.active">
-      <img [src]="slide.image">
-    </igx-slide>
-  </igx-carousel>
-
-<div id="linksContainer">
+<!-- <div id="linksContainer">
     <h3 class="links"><a target="_blank" rel="noopener" href="https://github.com/IgniteUI/ignite-ui-cli">Ignite UI CLI </a></h3>
     <h3 class="links"><a target="_blank" rel="noopener" href="https://www.infragistics.com/products/ignite-ui-angular">Component Demos</a></h3>
     <h3 class="links"><a target="_blank" rel="noopener" href="https://github.com/IgniteUI/igniteui-angular-ui-kits">Sketch UI Kit</a></h3>
-</div>
+</div> -->
+<table>
+  <tr>
+    <td>
+      <span>
+        <igx-grid #gridRowEditTransaction [data]="data" [primaryKey]="'ProductID'" width="835px" height="500px"
+          [rowEditable]="true">
+          <igx-column width="135px">
+            <ng-template igxCell let-cell="cell" let-val>
+              <button igxButton (click)="deleteRow($event, cell.cellID.rowID)">Delete</button>
+            </ng-template>
+          </igx-column>
+          <igx-column width="60px" field="ProductID" header="Product ID"></igx-column>
+          <igx-column width="100px" field="ReorderLevel" header="ReorderLever" [dataType]="'number'"></igx-column>
+          <igx-column width="190px" field="ProductName" header="ProductName" [dataType]="'string'"></igx-column>
+          <igx-column width="100px" field="UnitsInStock" header="UnitsInStock" [dataType]="'number'">
+            <ng-template igxCellEditor let-cell="cell">
+              <input name="units" [(ngModel)]="cell.editValue" [igxFocus]="true" style="color: black; width: 30px;" />
+            </ng-template>
+          </igx-column>
+          <igx-column width="150px" field="OrderDate" [dataType]="'date'"></igx-column>
+          <igx-column width="100px" field="Discontinued" header="Discontinued" [dataType]="'boolean'"></igx-column>
+        </igx-grid>
+      </span>
+    </td>
+    <td>
+      <span>
+        <p>Basic category chart with chart type selector for dynamic type updates</p>
+        <div style="margin-left: 25px">
+          <span>Chart Type:</span>
+          <select [(ngModel)]="chartType">
+            <option>Auto</option>
+            <option>Area</option>
+            <option>Line</option>
+            <option>Column</option>
+            <option>Point</option>
+            <option>Spline</option>
+            <option>SplineArea</option>
+            <option>StepArea</option>
+            <option>StepLine</option>
+            <option>Waterfall</option>
+          </select>
+        </div>
+        <igx-category-chart height="550px" width="100%" chartTitle="Population per Country (millions)"
+          [chartType]="chartType" [dataSource]="data2">
+        </igx-category-chart>
+      </span>
+    </td>
+  </tr>
+</table>
