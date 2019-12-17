@@ -1,4 +1,4 @@
-# SSRRouting
+# SSR Example
 
 This project was generated with [Ignite UI CLI](https://github.com/IgniteUI/igniteui-cli) version 4.3.2.
 
