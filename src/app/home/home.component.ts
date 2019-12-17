@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { data } from './data';
+import { Title, Meta } from '@angular/platform-browser';
 
 import { IgxDialogComponent, IgxGridComponent, Transaction } from 'igniteui-angular';
 
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
     { CountryName: 'Brazil', Pop1995: 161, Pop2005: 186, }
   ];
 
-  constructor() {
+  constructor(private titleService: Title, private metaService: Meta) {
     this.data = data;
     this.addProductId = this.data.length + 1;
   }
@@ -37,6 +38,12 @@ export class HomeComponent implements OnInit {
     return this.grid.transactions;
   }
   public ngOnInit() {
+    this.titleService.setTitle(this.title);
+    this.metaService.addTags([
+      {name: 'keywords', content: 'Angular, Universal, Example'},
+      {name: 'description', content: 'Angular Universal Example'},
+      {name: 'robots', content: 'index, follow'}
+    ]);
 
     this.transactionsData = this.transactions.getAggregatedChanges(true);
     this.transactions.onStateUpdate.subscribe(() => {
